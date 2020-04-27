@@ -19,10 +19,7 @@ exports.create = (req,res) =>{
             Email:req.body.Email||"Not Available",
             
             AddressLine1:req.body.AddressLine1,
-            AddressLine2:req.body.AddressLine2||"Not Available",
-
-            Username:req.body.Username,
-            Password:req.body.Password 
+            AddressLine2:req.body.AddressLine2||"Not Available"
             
         });
         newRecord.save().then(data => {
@@ -38,7 +35,7 @@ exports.findAll = (req,res) =>{
     Admin.find((err,data)=>{
         if(err){
             res.status(500).send({
-                message : err.message || "Error"
+                message : err.message || "Error",
             });
         }else{
             res.send(data);

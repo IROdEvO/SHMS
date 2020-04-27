@@ -91,33 +91,25 @@ exports.update = (req,res) =>{
                 
                 AddressLine1:req.body.AddressLine1,
                 AddressLine2:req.body.AddressLine2||"Not Available",
-    
-                Username:req.body.Username,
-                Password:req.body.Password,
 
-                Hospital:req.params.Hospital,
-                Ward:req.params.Ward,   
+                Hospital:req.body.Hospital,
+                Ward:req.body.Ward,   
     
-                AreaOfExpertise:req.params.AreaOfExpertise
+                AreaOfExpertise:req.body.AreaOfExpertise
                 
             };
         
-        Doctor.findByIdAndUpdate(req.params.nic,newRecord,{new:true}).then(data=>{
-            if(!data){
-               return res.status(404).send({
-                    message : "Record not found"
+        Doctor.findByIdAndUpdate(req.params.nic,newRecord,{new:true},(err,data)=>{
+            if(err){
+                console.log(err);
+                res.status(500).send({
+                    message : "An error occured. Please see the console logs"
                 });
-            }else{
+            }else if(data){
                 res.send(data);
-            }
-        }).catch(err=>{
-            if(err.kind === 'ObjectId'){
-                return res.status(404).send({
-                    message : "Record not found"
-                });
             }else{
-                return res.status(500).send({
-                    message : err.message || "Error"
+                res.status(404).send({
+                    message : "Record does not exist"
                 });
             }
         });

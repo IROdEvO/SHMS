@@ -14,6 +14,8 @@ const PatientSchema = mongoose.Schema({
     AddressLine1:{type:String,required:true},
     AddressLine2:String,
     
+    Hospital:String,
+    Ward:String,
     PatientType:String,
     DeviceID:String
 },
