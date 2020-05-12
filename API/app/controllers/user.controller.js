@@ -23,9 +23,13 @@ exports.create = (req,res) =>{
             AddressLine2:req.body.AddressLine2||"Not Available",
 
             Hospital:req.body.Hospital,
-            Ward:req.body.Ward,   
+            Ward:req.body.Ward,  
+            PatientType:req.body.PatientType,
+            DeviceID:req.body.DeviceID,
+            AccountType:req.body.AccountType,
+            Password:req.body.Password, 
     
-            AreaOfExpertise:req.body.AreaOfExpertise
+            AreaOfExpertise:req.body.AreaOfExpertise||"Not Applicable"
 
             
         });

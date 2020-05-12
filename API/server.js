@@ -21,15 +21,16 @@ mongoose.connect(databaseConfiguration.url,{
     process.exit();
 });
 
-// define a simple route 
+
 app.get('/', (req, res) => {
-    res.json({"message": "Smart Health Monitoring and Alerting System"});
+   res.json({"message": "SHMS Server"});
 });
  
 require("./app/routes/user.routes.js")(app);
 require("./app/routes/medicalrecords.routes.js")(app);
+require("./app/routes/vitalrecords.routes.js")(app);
 
-// listen for requests
+
 app.listen(PORT, () => {
     console.log("Server is listening on port "+PORT);
 });
