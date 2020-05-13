@@ -13,7 +13,7 @@ db = client.SHMS
 # Created or Switched to collection names: my_gfg_collection 
 collection = db.vitalrecords
 
-WAIT_SECONDS = 5
+WAIT_SECONDS = 10
 
 def senddata():
 

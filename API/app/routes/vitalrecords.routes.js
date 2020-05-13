@@ -5,5 +5,11 @@ module.exports = app =>{
 
     app.get('/vitalrecords/:devid', vitalrecords.findByDeviceID);
 
+    app.get('/vitalrecords',vitalrecords.findAll);
+
+    app.get('/vitalrecords/:devid/latest',vitalrecords.findByDeviceIDLatest);
+
     app.delete('/vitalrecords/:devid',vitalrecords.deleteAllByDeviceID);
+
+    app.delete('/vitalrecords',vitalrecords.deleteAll);
 }

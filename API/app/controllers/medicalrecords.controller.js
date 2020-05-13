@@ -31,10 +31,14 @@ exports.findAll = (req,res) =>{
             res.status(500).send({
                 message : err.message || "Error"
             });
-        }else{
+        }else if(data.length){
             res.send(data);
+        }else{
+            res.status(404).send({
+                message : "No records found"
+            });
         }
-    });
+    }).sort({_id:-1});
 }
 exports.findByPatientNIC = (req,res) =>{
     MedicalRecord.find({BelongingPatientNIC:req.params.nic},(err,data)=>{
@@ -51,7 +55,7 @@ exports.findByPatientNIC = (req,res) =>{
             });
             console.log(data);
         }
-    });
+    }).sort({_id:-1});
 };
 
 exports.findByDoctorNIC = (req,res) =>{

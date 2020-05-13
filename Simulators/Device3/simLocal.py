@@ -5,15 +5,15 @@ from datetime import datetime
 import threading
 import random
 
-client = pymongo.MongoClient("mongodb+srv://shms:LwiRHVe1Ht6V7Otf@cluster0-xivfn.mongodb.net/test?retryWrites=true&w=majority")
 
+client = pymongo.MongoClient()
 # database 
-db = client.SHMS 
+db = client.shms 
 
 # Created or Switched to collection names: my_gfg_collection 
 collection = db.vitalrecords
 
-WAIT_SECONDS = 5
+WAIT_SECONDS = 10
 
 def senddata():
 
@@ -21,7 +21,7 @@ def senddata():
             "Temperature" : random.randint(20, 100),
             "Pulse" : random.randint(50, 150),
             "EmergencyButtonPressed" : "No",
-            "DeviceID" : "d4",
+            "DeviceID" : "d3",
             "Timestamp" : datetime.now()
             } 
 

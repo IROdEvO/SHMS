@@ -23,6 +23,20 @@ exports.create = (req,res) =>{
     }
 };
 
+exports.findAll = (req,res) =>{
+    VitalRecord.find((err,data)=>{
+        if(err){
+            res.status(500).send({
+                message : err.message || "Error"
+            });
+        }else if(data.length){
+            res.send(data);
+        }else{
+            res.status(404).send({message:"No records found"});
+        }
+    }).sort({_id:-1});
+};
+
 exports.findByDeviceID = (req,res) =>{
     VitalRecord.find({DeviceID:req.params.devid},(err,data)=>{
         if(err){
@@ -38,7 +52,25 @@ exports.findByDeviceID = (req,res) =>{
             });
             console.log(data);
         }
-    });
+    }).sort({_id:-1});
+};
+
+exports.findByDeviceIDLatest = (req,res) =>{
+    VitalRecord.find({DeviceID:req.params.devid},(err,data)=>{
+        if(err){
+            res.send({
+                message : err.message || "Err"
+            });
+            console.log(err);
+        }else if(data.length){
+            res.send(data);
+        }else{
+            res.status(404).send({
+                message : `No record exists for device with device id ${req.params.devid}`
+            });
+            console.log(data);
+        }
+    }).sort({_id:-1}).limit(1);
 };
 
 exports.deleteAllByDeviceID = (req,res) =>{
@@ -51,6 +83,20 @@ exports.deleteAllByDeviceID = (req,res) =>{
         }else{
             res.send({
                 message : "All records of device"+req.params.devid+" were deleted successfully"
+            });
+        }
+    });
+};
+
+exports.deleteAll = (req,res)=>{
+    VitalRecord.deleteMany({},(err,data)=>{
+        if(err){
+            res.status(500).send({
+                message : err.message || "Error"
+            });
+        }else{
+            res.send({
+                message : "Deleted all the vital records"
             });
         }
     });

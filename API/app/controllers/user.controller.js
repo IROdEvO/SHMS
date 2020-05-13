@@ -57,8 +57,12 @@ exports.findAll = (req,res) =>{
             res.status(500).send({
                 message : err.message || "Error"
             });
-        }else{
+        }else if(data.length){
             res.send(data);
+        }else{
+            res.send({
+                message : "No data exists"
+            });
         }
     });
 }
@@ -68,7 +72,7 @@ exports.findOne = (req,res) =>{
             res.status(500).send({
                 message : err.message ||"Error"
             });
-        }else if(data){
+        }else if(data.length){
             res.send(data);
         }else{
             res.send({message:"Record not found"});

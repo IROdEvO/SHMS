@@ -13,15 +13,15 @@ db = client.SHMS
 # Created or Switched to collection names: my_gfg_collection 
 collection = db.vitalrecords
 
-WAIT_SECONDS = 5
+WAIT_SECONDS = 10
 
 def senddata():
 
     vitalrecord = { 
             "Temperature" : random.randint(20, 100),
             "Pulse" : random.randint(50, 150),
-            "EmergencyButtonPressed" : "Yes",
-            "DeviceID" : "d3",
+            "EmergencyButtonPressed" : "No",
+            "DeviceID" : "d1",
             "Timestamp" : datetime.now()
             } 
 
