@@ -61,11 +61,26 @@ exports.findAll = (req,res) =>{
             res.send(data);
         }else{
             res.send({
-                message : "No data exists"
+                message : "No records found"
             });
         }
     });
-}
+};
+exports.findAllByAccountType = (req,res)=>{
+    User.find({AccountType:req.params.accounttype},(err,data)=>{
+        if(err){
+            res.status(500).send({
+                message : err.message || "Error"
+            });
+        }else if(data.length){
+            res.send(data);
+        }else{
+            res.status(404).send({
+                message : "No records found"
+            })
+        }
+    });
+};
 exports.findOne = (req,res) =>{
     User.find({NIC:req.params.nic},(err,data)=>{
         if(err){

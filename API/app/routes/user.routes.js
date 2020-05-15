@@ -7,6 +7,8 @@ module.exports = app =>{
 
     app.get('/users/:nic', users.findOne);
 
+    app.get('/users/accounttype/:accounttype',users.findAllByAccountType);
+
     app.put('/users/:nic', users.update);
 
     app.delete('/users/:nic', users.delete);
