@@ -26,26 +26,31 @@ export default {
       ],
     }
   },
+  mounted(){
+    this.getPatients()
+  },
   methods:{
     addPatient(patient) {
-      const lastId =
-        this.patients.length > 0
-          ? this.patients[this.patients.length - 1].id
-          : 0;
-        const id = lastId + 1;
-        const newPatient = { ...patient, id };
-
-      this.patients = [...this.patients, newPatient];
+      this.patients = [...this.patients, patient];
     },
-    deletePatient(id){
+    deletePatient(_id){
       this.patients = this.patients.filter(
-      patient => patient.id !== id)
+      patient => patient._id !== _id)
     },
-    editEmployee(id, updatedPatient){
+    editEmployee(_id, updatedPatient){
       this.patients=this.patients.map(
         patient => 
-        patient.id === id ? updatedPatient : patient
+        patient._id === _id ? updatedPatient : patient
       )
+    },
+    async getPatients(){
+          try {
+            const response = await fetch('http://localhost:5000/users/accounttype/Patient')
+            const data = await response.json()
+            this.patients = data
+          } catch (error) {
+            console.error(error)
+          }
     }
   },
 }

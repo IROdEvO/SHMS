@@ -15,25 +15,38 @@ collection = db.vitalrecords
 
 WAIT_SECONDS = 10
 
+def values():
+	values.temp = random.randint(0,100)
+	values.pulse = random.randint(0,150)
+	if values.temp > 100 or values.pulse > 100 :
+		values.condition = "WARNING"
+	elif values.temp > 100 and values.pulse > 100:
+		values.condition = "CRITICAL"
+	elif values.temp < 10 or values.pulse <30:
+		values.condition = "WARNING"
+	elif values.temp < 10 and values.pulse <30:
+		values.condition = "CRITICAL"
+	else : values.condition = "OK"
+
+	threading.Timer(WAIT_SECONDS,values).start()
+values()
+
+
 def senddata():
 
-    vitalrecord = { 
-            "Temperature" : random.randint(20, 100),
-            "Pulse" : random.randint(50, 150),
-            "EmergencyButtonPressed" : "No",
-            "DeviceID" : "d2",
-            "Timestamp" : datetime.now()
-            } 
+    vitalrecord = {
+            	"Temperature" : values.temp,
+           	"Pulse" : values.pulse,
+            	"EmergencyButtonPressed" : "No",
+            	"DeviceID" : "d2",
+		"Condition" : values.condition,
+            	"Timestamp" : datetime.now()
+            	} 
 
-    # Insert Data 
-    rec_id1 = collection.insert_one(vitalrecord)  
+    # Insert Data
+    rec_id = collection.insert_one(vitalrecord)  
 
-    print("Data inserted with record ids",rec_id1) 
-
-    # Printing the data inserted 
-   # cursor = collection.find() 
-    #for record in cursor: 
-     #   print(record) 
+    print("Data inserted with record ids",rec_id)
 
     threading.Timer(WAIT_SECONDS,senddata).start()
 
