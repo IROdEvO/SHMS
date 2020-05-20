@@ -7,112 +7,105 @@
       <div class="ui label">
       NIC
       </div>
-      <input type="text" placeholder="Enter Details" v-model="patient.NIC" />
+      <input type="text" placeholder="Enter Details" v-model="doctor.NIC" />
     </div>
 
     <div class="ui labeled input fluid">
       <div class="ui label">
    First Name
       </div>
-      <input type="text" placeholder="Enter Details" v-model='patient.FirstName' />
+      <input type="text" placeholder="Enter Details" v-model='doctor.FirstName' />
     </div>
 
     <div class="ui labeled input fluid">
       <div class="ui label">
    Middle Name
       </div>
-      <input type="text" placeholder="Enter Details" v-model='patient.MiddleName' />
+      <input type="text" placeholder="Enter Details" v-model='doctor.MiddleName' />
     </div>
 
     <div class="ui labeled input fluid">
       <div class="ui label">
     Last Name
       </div>
-      <input type="text" placeholder="Enter Details" v-model='patient.Surname' />
+      <input type="text" placeholder="Enter Details" v-model='doctor.Surname' />
     </div>
 
     <div class="ui labeled input fluid">
       <div class="ui label">
     DOB
       </div>
-      <input type="text" placeholder="Enter Details" v-model='patient.DOB' />
+      <input type="text" placeholder="Enter Details" v-model='doctor.DOB' />
     </div>
 
      <div class="ui labeled input fluid">
       <div class="ui label">
     Mobile Phone
       </div>
-      <input type="text" placeholder="Enter Details" v-model='patient.MobilePhone' />
+      <input type="text" placeholder="Enter Details" v-model='doctor.MobilePhone' />
     </div>
 
      <div class="ui labeled input fluid">
       <div class="ui label">
     Home Telephone
       </div>
-      <input type="text" placeholder="Enter Details" v-model='patient.HomeTelephone' />
+      <input type="text" placeholder="Enter Details" v-model='doctor.HomeTelephone' />
     </div>
 
     <div class="ui labeled input fluid">
       <div class="ui label">
     Email
       </div>
-      <input type="text" placeholder="Enter Details" v-model='patient.Email' />
+      <input type="text" placeholder="Enter Details" v-model='doctor.Email' />
     </div>
 
     <div class="ui labeled input fluid">
       <div class="ui label">
     Address Line 1
       </div>
-      <input type="text" placeholder="Enter Details" v-model='patient.AddressLine1' />
+      <input type="text" placeholder="Enter Details" v-model='doctor.AddressLine1' />
     </div>
 
     <div class="ui labeled input fluid">
       <div class="ui label">
     Address Line 2
       </div>
-      <input type="text" placeholder="Enter Details" v-model='patient.AddressLine2' />
+      <input type="text" placeholder="Enter Details" v-model='doctor.AddressLine2' />
     </div>
 
     <div class="ui labeled input fluid">
       <div class="ui label">
         Hospital
       </div>
-      <input type="text" placeholder="Enter Details" v-model='patient.Hospital' />
+      <input type="text" placeholder="Enter Details" v-model='doctor.Hospital' />
     </div>
 
     <div class="ui labeled input fluid">
       <div class="ui label">
     Ward
       </div>
-      <input type="text" placeholder="Enter Details" v-model='patient.Ward' />
+      <input type="text" placeholder="Enter Details" v-model='doctor.Ward' />
     </div>
 
     <div class="ui labeled input fluid">
       <div class="ui label">
-    Device ID
+    Area of Expertise
       </div>
-      <input type="text" placeholder="Enter Details" v-model='patient.DeviceID' />
-    </div>
-
-    <div class="ui labeled input fluid">
-      <div class="ui label">
-    Patient Type
-      </div>
-      <input type="text" placeholder="Enter Details" v-model='patient.PatientType' />
+      <input type="text" placeholder="Enter Details" v-model='doctor.AreaOfExpertise' />
     </div>
 
     <div class="ui labeled input fluid">
       <div class="ui label">
     Password
       </div>
-      <input type="text" placeholder="Enter Details" v-model='patient.Password' />
+      <input type="text" placeholder="Enter Details" v-model='doctor.Password' />
     </div>
 
     <div class="ui labeled input fluid">
       <div class="ui label">
     Account Type
       </div>
-      <input type="text" readonly placeholder="Enter Details" v-model='patient.AccountType'/>
+      <input type="text" readonly placeholder="Enter Details" v-model='doctor.AccountType'/>
     </div>
 
     <button class="positive ui button">Submit</button>
@@ -121,9 +114,9 @@
 
 <script>
 export default {
-  name: 'patient-form',
+  name: 'doctor-form',
   props: {
-    patient: {
+    doctor: {
       type: Object,
       required: false,
       default: () => {
@@ -140,8 +133,7 @@ export default {
           AddressLine2:'',
           Hospital:'',
           Ward:'',
-          DeviceID:'',
-          PatientType:'',
+          AreaOfExpertise:'',
           Password:'',
           AccountType:''
         };
@@ -155,23 +147,22 @@ export default {
   },
   methods: {
     onSubmit: function() {
-      if (this.patient.NIC === '' ||this.patient.FirstName === '' || 
-      this.patient.MiddleName === '' ||
-      this.patient.Surname === '' ||
-      this.patient.DOB === '' ||
-      this.patient.MobilePhone === '' ||
-      this.patient.HomeTelephone === '' ||
-      this.patient.Email === '' ||
-      this.patient.AddressLine1 === '' ||
-      this.patient.AddressLine2 === '' ||
-      this.patient.Hospital === '' ||
-      this.patient.Ward === '' ||
-      this.patient.DeviceID === '' || 
-      this.patient.PatientType === '' ||
-      this.patient.Password === ''||this.patient.AccountType === '') {
+      if (this.doctor.NIC === '' ||this.doctor.FirstName === '' || 
+      this.doctor.MiddleName === '' ||
+      this.doctor.Surname === '' ||
+      this.doctor.DOB === '' ||
+      this.doctor.MobilePhone === '' ||
+      this.doctor.HomeTelephone === '' ||
+      this.doctor.Email === '' ||
+      this.doctor.AddressLine1 === '' ||
+      this.doctor.AddressLine2 === '' ||
+      this.doctor.Hospital === '' ||
+      this.doctor.Ward === '' ||
+      this.doctor.AreaOfExpertise === '' || 
+      this.doctor.Password === ''||this.doctor.AccountType === '') {
         this.errorsPresent = true;
       } else {
-        this.$emit('createOrUpdate', this.patient);
+        this.$emit('createOrUpdate', this.doctor);
       }
     }
   }

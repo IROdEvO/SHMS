@@ -1,4 +1,4 @@
-# shms-app
+# shms-application
 
 ## Project setup
 ```

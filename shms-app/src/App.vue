@@ -1,67 +1,62 @@
 <template>
-  <div id="app" class="small-container">
-    <h1 style="text-align:center">SMART HEALTH MONITORING SYSTEM</h1>
-     <h2>Register Patients</h2>
-    <patient-form @add:patient="addPatient"/>
-    <patient-table :patients="patients" @delete:patient="deletePatient" @edit:patient="editPatient"/>
+  <div id="app">
+    <div class="ui inverted segment navbar">
+      <div class="ui center aligned container">
+        <div class="ui large secondary inverted pointing menu compact">
+          <router-link to="/patients" exact class="item">
+            Patients
+          </router-link>
+          <router-link to="/patients/new" class="item">
+            <i class="plus circle icon"></i> New Patient
+          </router-link>
+          <router-link to="/doctors" exact class="item">
+            Doctors
+          </router-link>
+          <router-link to="/doctors/new" class="item">
+            <i class="plus circle icon"></i> New Doctor
+          </router-link>
+        </div>
+      </div>
+    </div>
 
+    <div class="ui text container">
+      <div class="ui one column grid">
+        <div class="column">
+          <router-view />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-  import PatientTable from '@/components/PatientTable.vue'
-  import PatientForm from '@/components/PatientForm.vue'
-
-
 export default {
-  name: 'App',
-  components: {
-    PatientTable,
-    PatientForm
-  },
-  data(){
-    return {
-      patients: [
-       
-      ],
-    }
-  },
-  methods:{
-    addPatient(patient) {
-      const lastId =
-        this.patients.length > 0
-          ? this.patients[this.patients.length - 1].id
-          : 0;
-        const id = lastId + 1;
-        const newPatient = { ...patient, id };
-
-      this.patients = [...this.patients, newPatient];
-    },
-    deletePatient(id){
-      this.patients = this.patients.filter(
-      patient => patient.id !== id)
-    },
-    editEmployee(id, updatedPatient){
-      this.patients=this.patients.map(
-        patient => 
-        patient.id === id ? updatedPatient : patient
-      )
-    }
-  },
-}
+  name: 'app'
+};
 </script>
 
 <style>
- button {
-    background: #009435;
-    border: 1px solid #009435;
-  }
-  h1{
-    color: crimson;
-  }
-
-  .small-container {
-    max-width: 100%;
-    float: left;
-  }
+#app > div.navbar {
+  margin-bottom: 1.5em;
+}
+.myFlash {
+  width: 250px;
+  margin: 10px;
+  position: absolute;
+  top: 50;
+  right: 0;
+}
+input {
+  width: 300px;
+}
+div.label {
+  width: 120px;
+}
+div.input {
+  margin-bottom: 10px;
+}
+button.ui.button {
+  margin-top: 15px;
+  display: block;
+}
 </style>
