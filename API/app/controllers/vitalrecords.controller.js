@@ -24,6 +24,8 @@ exports.create = (req,res) =>{
 };
 
 exports.findAll = (req,res) =>{
+    res.header("Access-Control-Allow-Origin", "*");
+
     VitalRecord.find((err,data)=>{
         if(err){
             res.status(500).send({
@@ -38,6 +40,8 @@ exports.findAll = (req,res) =>{
 };
 
 exports.findByDeviceID = (req,res) =>{
+    res.header("Access-Control-Allow-Origin", "*");
+
     VitalRecord.find({DeviceID:req.params.devid},(err,data)=>{
         if(err){
             res.send({
@@ -50,12 +54,14 @@ exports.findByDeviceID = (req,res) =>{
             res.status(404).send({
                 message : `No record exists for device with device id ${req.params.devid}`
             });
-            console.log(data);
+            //console.log(data);
         }
     }).sort({_id:-1});
 };
 
 exports.findByDeviceIDLatest = (req,res) =>{
+    res.header("Access-Control-Allow-Origin", "*");
+
     VitalRecord.find({DeviceID:req.params.devid},(err,data)=>{
         if(err){
             res.send({

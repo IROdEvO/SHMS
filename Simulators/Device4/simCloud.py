@@ -10,23 +10,55 @@ client = pymongo.MongoClient("mongodb+srv://shms:LwiRHVe1Ht6V7Otf@cluster0-xivfn
 # database 
 db = client.SHMS 
 
-# Created or Switched to collection names: my_gfg_collection 
+# Created or Switched to collection 
 collection = db.vitalrecords
 
 WAIT_SECONDS = 10
 
 def values():
-	values.temp = random.randint(0,100)
-	values.pulse = random.randint(0,150)
-	if values.temp > 100 or values.pulse > 100 :
-		values.condition = "WARNING"
-	elif values.temp > 100 and values.pulse > 100:
-		values.condition = "CRITICAL"
-	elif values.temp < 10 or values.pulse <30:
-		values.condition = "WARNING"
-	elif values.temp < 10 and values.pulse <30:
-		values.condition = "CRITICAL"
-	else : values.condition = "OK"
+	values.temp = round(random.uniform(30.51,44.51),2)
+	values.pulse = random.randint(30,150)
+	values.latitude = round(random.uniform(-90,90),4)
+	values.longitude = round(random.uniform(-180,180),4)
+	if values.temp<35.0 :
+		values.tempcondition = "Hypothermia"
+		values.alertstatus1 = "Critical"
+	elif values.temp>=35 and values.temp<=37.5 :
+		values.tempcondition = "Normal"
+		values.alertstatus1 = "Stable"
+	elif values.temp>37.5 and values.temp<40 :
+		values.tempcondition = "Hyperthermia"
+		values.alertstatus1 = "Warning"
+	elif values.temp>=40 and values.temp<42 :
+		values.tempcondition = "Hyperpyrexia"
+		values.alertstatus1 = "Critical"
+	elif values.temp>=42 :
+		values.tempcondition = "Extreme Hyperpyrexia"
+		values.alertstatus1 = "Emergency"
+
+	if values.pulse>100:
+		values.alertstatus2 = "Critical" 
+	elif values.pulse >=60 and values.pulse <=100 :
+		values.alertstatus2 = "Stable" 
+	elif values.pulse >=40 and values.pulse<60 :
+		values.alertstatus2 = "Warning" 
+	elif values.pulse<40:
+		values.alertstatus2 = "Critical" 
+
+	
+	if values.alertstatus1 == "Stable" and values.alertstatus2 == "Stable":
+		values.alertstatus  = "Stable"
+
+	if values.alertstatus1 == "Warning" and values.alertstatus2 == "Warning":
+		values.alertstatus = "Warning"
+
+	if values.alertstatus1 == "Critical" or values.alertstatus2 == "Critical":
+		values.alertstatus = "Critical"	
+	
+	if values.alertstatus1 == "Emergency":
+		values.alertstatus = "Emergency"
+
+	 
 
 	threading.Timer(WAIT_SECONDS,values).start()
 values()
@@ -39,7 +71,10 @@ def senddata():
            	"Pulse" : values.pulse,
             	"EmergencyButtonPressed" : "No",
             	"DeviceID" : "d4",
-		"Condition" : values.condition,
+		"TempCondition" : values.tempcondition,
+		"Status":values.alertstatus,
+		"Lat":values.latitude,
+		"Lng":values.longitude,
             	"Timestamp" : datetime.now()
             	} 
 

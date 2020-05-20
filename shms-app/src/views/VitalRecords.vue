@@ -1,8 +1,11 @@
 <style scoped>
+#headTable{
+    margin-inline-start: 25pt;
+}
 </style>
 <template>
     <div>
-        <table id="headTable" class="ui celled table">
+        <table id="headTable" class="ui celled compact table">
             <thead>
                 <tr>
                     <th><h1 style="text-align:center;">Vital Records of </h1><h1 style="text-align:center;"><router-link :to="{ name: 'show', params: { id: this.$route.params.NIC }}">{{this.$route.params.NIC}}</router-link></h1></th>
@@ -17,6 +20,7 @@
                     <th>Emergency Button Pressed</th>
                     <th>Temperature Condition</th>
                     <th>Status</th>
+                    <th>Location</th>
                     <th>Timestamp</th>
                 </tr>
             </thead>
@@ -27,6 +31,7 @@
                         <td>{{record.EmergencyButtonPressed}}</td>
                         <td>{{record.TempCondition}}</td>
                         <td>{{record.Status}}</td>
+                        <td>Lat: {{record.Lat}}<br/>Lng: {{record.Lng}}</td>
                         <td>{{record.Timestamp}}</td>
                     </tr>
             </tbody>

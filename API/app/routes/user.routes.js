@@ -9,7 +9,7 @@ module.exports = app =>{
 
     app.get('/users/accounttype/:accounttype',users.findAllByAccountType);
 
-    app.put('/users/:nic', users.update);
+    app.put('/users/:_id', users.update);
 
     app.delete('/users/:nic', users.delete);
 

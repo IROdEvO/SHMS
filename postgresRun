@@ -1,2 +1,0 @@
-npx postgraphile -c postgres://iroshan:iroshan@localhost/shms --watch --enhance-graphiql --dynamic-json
-

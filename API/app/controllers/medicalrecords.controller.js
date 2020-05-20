@@ -12,7 +12,7 @@ exports.create = (req,res) =>{
             AssignedDoctorNIC:req.body.AssignedDoctorNIC,
             DiagnosedDate:req.body.DiagnosedDate,
             RecoveryStatus:req.body.RecoveryStatus,
-            RecoveredDate:req.body.RecoveredData,
+            RecoveredDate:req.body.RecoveredDate,
             Details:req.body.Details
             
         });
@@ -53,7 +53,7 @@ exports.findByPatientNIC = (req,res) =>{
             res.status(404).send({
                 message : `No record exists for patient with the nic ${req.params.nic}`
             });
-            console.log(data);
+            console.log(data); 
         }
     }).sort({_id:-1});
 };

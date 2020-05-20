@@ -2,7 +2,8 @@ const User = require("../models/user.model.js");
 const bcrypt = require("bcrypt");
 const json = require("json");
 exports.create = (req,res) =>{
-    
+    res.header("Access-Control-Allow-Origin", "*");
+    req.header("Access-Control-Allow-Origin", "*");
     if(!req.body){
         res.status(400).send({
             message : "Content cannot be empty"
@@ -52,6 +53,7 @@ exports.create = (req,res) =>{
     }
 };
 exports.findAll = (req,res) =>{
+    res.header("Access-Control-Allow-Origin", "*");
     User.find((err,data)=>{
         if(err){
             res.status(500).send({
@@ -67,6 +69,8 @@ exports.findAll = (req,res) =>{
     });
 };
 exports.findAllByAccountType = (req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    req.header("Access-Control-Allow-Origin", "*");
     User.find({AccountType:req.params.accounttype},(err,data)=>{
         if(err){
             res.status(500).send({
@@ -82,6 +86,8 @@ exports.findAllByAccountType = (req,res)=>{
     });
 };
 exports.findOne = (req,res) =>{
+    res.header("Access-Control-Allow-Origin", "*");
+    req.header("Access-Control-Allow-Origin", "*");
     User.find({NIC:req.params.nic},(err,data)=>{
         if(err){
             res.status(500).send({
@@ -95,6 +101,8 @@ exports.findOne = (req,res) =>{
     })
 };
 exports.update = (req,res) =>{
+    res.header("Access-Control-Allow-Origin", "*");
+    req.header("Access-Control-Allow-Origin", "*");
     if(!req.body){
         res.status(400).send({
             message : "Content cannot be empty"
@@ -125,14 +133,14 @@ exports.update = (req,res) =>{
     
                     Hospital:req.body.Hospital,
                     Ward:req.body.Ward,   
-                    PatientType:req.body.PatientType,
+                    PatientType:req.body.PatientType || "Not Applicable",
                     Password:hashedPassword,
-                    DeviceID:req.body.DeviceID,
+                    DeviceID:req.body.DeviceID || "Not Applicable",
                     AccountType:req.body.AccountType,
-                    AreaOfExpertise:req.body.AreaOfExpertise
+                    AreaOfExpertise:req.body.AreaOfExpertise || "Not Applicable"
                     
                 };
-               User.updateOne({NIC:req.params.nic},newRecord,{new:true},(err,data)=>{
+               User.updateOne({_id:req.params._id},newRecord,{new:true},(err,data)=>{
                     if(err){
                         res.status(500).send({
                             message : err.message || "Error"
@@ -175,6 +183,9 @@ exports.update = (req,res) =>{
     });
 };*/
 exports.delete=(req,res)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    req.header("Access-Control-Allow-Origin", "*");
+
     User.deleteOne({NIC:req.params.nic},(err,data)=>{
         if(err){
             res.status(500).send({
@@ -192,6 +203,8 @@ exports.delete=(req,res)=>{
     });
 }
 exports.deleteAll = (req,res) =>{
+    res.header("Access-Control-Allow-Origin", "*");
+
     User.deleteMany({},(err,data)=>{
         if(err){return res.status(500).send({
             message : err.message || "Error"
