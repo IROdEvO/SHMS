@@ -1,9 +1,10 @@
 const User = require("../models/user.model.js");
 const bcrypt = require("bcrypt");
 const json = require("json");
+const jwt = require("jsonwebtoken");
+const SECRET = 'Smart_Health_Monitoring_System';
 exports.create = (req,res) =>{
-    res.header("Access-Control-Allow-Origin", "*");
-    req.header("Access-Control-Allow-Origin", "*");
+    
     if(!req.body){
         res.status(400).send({
             message : "Content cannot be empty"
@@ -19,7 +20,7 @@ exports.create = (req,res) =>{
                 const newRecord = new User({
                     NIC:req.body.NIC,
                     FirstName:req.body.FirstName,
-                    MiddleName:req.body.MiddleName||"Not Available",
+                    MiddleName:req.body.MiddleName||'',
                     Surname:req.body.Surname,
                 
                     DOB:req.body.DOB,
@@ -30,7 +31,7 @@ exports.create = (req,res) =>{
                     Email:req.body.Email||"Not Available",
                     
                     AddressLine1:req.body.AddressLine1,
-                    AddressLine2:req.body.AddressLine2||"Not Available",
+                    AddressLine2:req.body.AddressLine2,
         
                     Hospital:req.body.Hospital,
                     Ward:req.body.Ward||"Not Applicable",  
@@ -52,8 +53,10 @@ exports.create = (req,res) =>{
         });
     }
 };
+
+
+
 exports.findAll = (req,res) =>{
-    res.header("Access-Control-Allow-Origin", "*");
     User.find((err,data)=>{
         if(err){
             res.status(500).send({
@@ -69,8 +72,7 @@ exports.findAll = (req,res) =>{
     });
 };
 exports.findAllByAccountType = (req,res)=>{
-    res.header("Access-Control-Allow-Origin", "*");
-    req.header("Access-Control-Allow-Origin", "*");
+    
     User.find({AccountType:req.params.accounttype},(err,data)=>{
         if(err){
             res.status(500).send({
@@ -86,8 +88,7 @@ exports.findAllByAccountType = (req,res)=>{
     });
 };
 exports.findOne = (req,res) =>{
-    res.header("Access-Control-Allow-Origin", "*");
-    req.header("Access-Control-Allow-Origin", "*");
+    
     User.find({NIC:req.params.nic},(err,data)=>{
         if(err){
             res.status(500).send({
@@ -100,9 +101,36 @@ exports.findOne = (req,res) =>{
         }
     })
 };
+exports.login = (req,res) => {
+    User.find({NIC:req.body.NIC},(err,data)=>{
+        if(err){
+            res.status(500).send({message:'Error'});
+            console.log(err);
+        }else if(data.length){
+            let passwordIsValid = bcrypt.compareSync(req.body.Password,data[0].Password);
+            if(!passwordIsValid){
+                res.status(401).send({
+                    message:'Password invalid',
+                    auth:false,     
+                    token:null
+                });
+                console.log("data");
+            }else{
+                let token = jwt.sign({id:data[0].NIC,type:data[0].AccountType},SECRET,{expiresIn:86400});
+                res.status(200).send({auth:true,token:token,user:data[0]});
+                console.log(token);
+            }
+            
+        }else{
+            res.status(404).send({ 
+                message:'No record found'
+            })
+            console.log('No Record Found');
+        }
+    });
+};
 exports.update = (req,res) =>{
-    res.header("Access-Control-Allow-Origin", "*");
-    req.header("Access-Control-Allow-Origin", "*");
+    
     if(!req.body){
         res.status(400).send({
             message : "Content cannot be empty"
@@ -118,7 +146,7 @@ exports.update = (req,res) =>{
                 const newRecord = 
                 {
                     FirstName:req.body.FirstName,
-                    MiddleName:req.body.MiddleName||"Not Available",
+                    MiddleName:req.body.MiddleName||'',
                     Surname:req.body.Surname,
                 
                     DOB:req.body.DOB,
@@ -129,7 +157,7 @@ exports.update = (req,res) =>{
                     Email:req.body.Email||"Not Available",
                     
                     AddressLine1:req.body.AddressLine1,
-                    AddressLine2:req.body.AddressLine2||"Not Available",
+                    AddressLine2:req.body.AddressLine2,
     
                     Hospital:req.body.Hospital,
                     Ward:req.body.Ward,   
@@ -183,8 +211,7 @@ exports.update = (req,res) =>{
     });
 };*/
 exports.delete=(req,res)=>{
-    res.header("Access-Control-Allow-Origin", "*");
-    req.header("Access-Control-Allow-Origin", "*");
+    
 
     User.deleteOne({NIC:req.params.nic},(err,data)=>{
         if(err){
@@ -203,7 +230,7 @@ exports.delete=(req,res)=>{
     });
 }
 exports.deleteAll = (req,res) =>{
-    res.header("Access-Control-Allow-Origin", "*");
+    
 
     User.deleteMany({},(err,data)=>{
         if(err){return res.status(500).send({

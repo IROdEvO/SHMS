@@ -1,5 +1,6 @@
 <template>
   <div>
+    <go-top></go-top>
     <h1>Doctors</h1>
     <table id="doctors" class="ui celled compact table">
       <thead>
@@ -35,9 +36,13 @@
 </template>
 
 <script>
+import GoTop from '@inotom/vue-go-top'
 import { api } from '../helpers/helpers';
 export default {
   name: 'doctors',
+  components:{
+    GoTop
+  },
   data() {
     return {
       doctors: []

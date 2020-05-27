@@ -43,6 +43,10 @@ export const api = {
     const res = await axios.post(baseURL, payload);
     return res.data;
   }),
+  userlogin: handleError(async payload => {
+    const res = await axios.post('http://localhost:5000/login/', payload);
+    return res.data;
+  }),
   updateuser: handleError(async payload => {
     const res = await axios.put(baseURL + payload._id, payload);
     return res.data;
@@ -73,6 +77,14 @@ export const api = {
   }),
   getvitalrecords: handleError(async id=>{
     const res = await axios.get('http://localhost:5000/vitalrecords/'+id);
+    return res.data;
+  }),
+  getlatestvitalrecordbydevice:handleError(async id=>{
+    const res = await axios.get('http://localhost:5000/vitalrecords/'+id+'/latest');
+    return res.data;
+  }),
+  getallvitalrecords:handleError(async ()=>{
+    const res = await axios.get('http://localhost:5000/vitalrecords');
     return res.data;
   })
 };

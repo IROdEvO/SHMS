@@ -4,14 +4,13 @@
 }
 </style>
 <template>
+    
     <div>
-        <table id="headTable" class="ui celled compact table">
-            <thead>
-                <tr>
-                    <th><h1 style="text-align:center;">Vital Records of </h1><h1 style="text-align:center;"><router-link :to="{ name: 'show', params: { id: this.$route.params.NIC }}">{{this.$route.params.NIC}}</router-link></h1></th>
-                </tr>
-            </thead>
-        </table>
+        <go-top></go-top>
+        
+                    <th><h1>Vital Records of <router-link :to="{ name: 'show', params: { id: this.$route.params.NIC }}">{{this.$route.params.NIC}}</router-link></h1></th>
+          
+        
         <table id="records" class="ui celled compact table">
             <thead>
                 <tr>
@@ -31,18 +30,23 @@
                         <td>{{record.EmergencyButtonPressed}}</td>
                         <td>{{record.TempCondition}}</td>
                         <td>{{record.Status}}</td>
-                        <td>Lat: {{record.Lat}}<br/>Lng: {{record.Lng}}</td>
+                        <td><router-link :to="{name:'location',params:{lat:record.Lat,lng:record.Lng}}">Lat: {{record.Lat}}<br/>Lng: {{record.Lng}}</router-link></td>
                         <td>{{record.Timestamp}}</td>
                     </tr>
             </tbody>
         </table>
     </div>
+    
 </template>
 
 <script>
 import { api } from '../helpers/helpers';
+import GoTop from '@inotom/vue-go-top';
 export default {
     name: 'medical-records',
+    components:{
+        GoTop
+    },
     data(){
         return{
             records:[]
@@ -60,7 +64,7 @@ export default {
         this.getData();
     },
     beforeDestroy(){
-        clearInterval(this.getData())
+        clearInterval(this.getData());
     }
 }
 </script>

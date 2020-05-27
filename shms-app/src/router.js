@@ -14,6 +14,9 @@ import ShowDoctor from './views/ShowDoctor.vue';
 import EditDoctor from './views/EditDoctor.vue';
 import AssignedMedicalRecords from './views/AssignedMedicalRecords.vue';
 import VitalRecords from './views/VitalRecords.vue';
+import Gmaps from './views/Gmaps.vue';
+import VitalDashboard from './views/VitalDashboard.vue';
+import LoginPage from './views/LoginPage.vue';
 Vue.use(Router);
 
 export default new Router({
@@ -21,44 +24,79 @@ export default new Router({
   base: process.env.BASE_URL,
   linkActiveClass: 'active',
   routes: [
+    
     {
       path: '/',
-      redirect: '/patients'
+      redirect: '/login'
+    },
+    {
+      path:'/login',
+      name:'login-page',
+      component:LoginPage
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: VitalDashboard,
+      meta:{
+        guest:true
+      }
     },
     {
       path: '/patients',
       name: 'patients',
-      component: Patients
+      component: Patients,
+      meta:{
+        requiresAuth:true
+      }
     },
     {
       path: '/doctors',
       name: 'doctors',
-      component: Doctors
+      component: Doctors,
+      meta:{
+        requiresAuth:true
+      }
     },
     {
       path: '/patients/new',
       name: 'new-patient',
-      component: New
+      component: New,
+      meta:{
+        requiresAuth:true
+      }
     },
     {
       path: '/doctors/new',
       name: 'new-doctor',
-      component: NewDoctor
+      component: NewDoctor,
+      meta:{
+        requiresAuth:true
+      }
     },
     {
       path: '/patients/:id',
       name: 'show',
-      component: Show
+      component: Show,
+      meta:{
+        requiresAuth:true
+      }
     },
     {
       path: '/doctors/:id',
       name: 'show-doctor',
-      component: ShowDoctor
+      component: ShowDoctor,
+      meta:{
+        requiresAuth:true
+      }
     },
     {
       path: '/patients/:id/edit',
       name: 'edit',
-      component: Edit
+      component: Edit,
+      meta:{
+        requiresAuth:true
+      }
     },
     {
       path: '/doctors/:id/edit',
@@ -68,32 +106,58 @@ export default new Router({
     {
       path: '/patients/medicalrecords/:id',
       name: 'medical-records',
-      component: MedicalRecords
+      component: MedicalRecords,
+      meta:{
+        requiresAuth:true
+      }
     },
     {
       path: '/patients/vitalrecords/:id/:NIC',
       name: 'vital-records',
-      component: VitalRecords
+      component: VitalRecords,
+      meta:{
+        requiresAuth:true
+      }
+    },
+    {
+      path: '/patients/vitalrecords/:id/:NIC/location/:lat/:lng',
+      name: 'location',
+      component: Gmaps,
+      meta:{
+        requiresAuth:true
+      }
     },
     {
       path: '/doctors/medicalrecords/:id',
       name: 'assigned-medical-records',
-      component: AssignedMedicalRecords
+      component: AssignedMedicalRecords,
+      meta:{
+        requiresAuth:true
+      }
     },
     {
       path: '/patients/medicalrecords/:id/new',
       name: 'new-medical-record',
-      component: NewMedicalRecord
+      component: NewMedicalRecord,
+      meta:{
+        requiresAuth:true
+      }
     },
     {
       path: '/patients/medicalrecords/:id/show',
       name: 'show-medicalrecords',
-      component: ShowMedicalRecords
+      component: ShowMedicalRecords,
+      meta:{
+        requiresAuth:true
+      }
     },
     {
       path: '/patients/medicalrecords/:id/edit',
       name: 'edit-medical-record',
-      component:EditMedicalRecord
+      component:EditMedicalRecord,
+      meta:{
+        requiresAuth:true
+      }
     }
    
   ]

@@ -5,6 +5,7 @@
 </style>
 <template>
     <div>
+        <go-top></go-top>
         <table id="headTable" class="ui celled table">
             <thead>
                 <tr>
@@ -46,9 +47,13 @@
 </template>
 
 <script>
+import GoTop from '@inotom/vue-go-top'
 import { api } from '../helpers/helpers';
 export default {
     name: 'medical-records',
+    components:{
+        GoTop
+    },
     data(){
         return{
             records:[]

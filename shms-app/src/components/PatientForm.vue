@@ -1,13 +1,13 @@
 <template>
  <form action="#" @submit.prevent="onSubmit">
     <p v-if="errorsPresent" class="error">Please fill out all fields!</p>
-
+   <p v-if="invalidEmail" class="error">Enter a valid email</p>
 
     <div class="ui labeled input fluid">
       <div class="ui label">
       NIC
       </div>
-      <input type="text" placeholder="Enter Details" v-model="patient.NIC" />
+      <input type="text" placeholder="Enter Details" v-model='patient.NIC' />
     </div>
 
     <div class="ui labeled input fluid">
@@ -58,7 +58,7 @@
       </div>
       <input type="text" placeholder="Enter Details" v-model='patient.Email' />
     </div>
-
+       <p v-if="invalidEmail" class="error">Enter a valid email</p>
     <div class="ui labeled input fluid">
       <div class="ui label">
     Address Line 1
@@ -143,18 +143,24 @@ export default {
           DeviceID:'',
           PatientType:'',
           Password:'',
-          AccountType:''
+          AccountType:'Patient'
         };
       }
     }
   },
   data() {
     return {
-      errorsPresent: false
+      errorsPresent: false,
+      email:this.patient.Email,
+      reg:/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
     };
   },
   methods: {
     onSubmit: function() {
+       
+      if(!this.reg.test(this.email)){
+        this.invalidEmail = true;
+      } 
       if (this.patient.NIC === '' ||this.patient.FirstName === '' || 
       this.patient.MiddleName === '' ||
       this.patient.Surname === '' ||
@@ -170,7 +176,7 @@ export default {
       this.patient.PatientType === '' ||
       this.patient.Password === ''||this.patient.AccountType === '') {
         this.errorsPresent = true;
-      } else {
+      }else {
         this.$emit('createOrUpdate', this.patient);
       }
     }

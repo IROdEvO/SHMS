@@ -135,7 +135,7 @@ export default {
           Ward:'',
           AreaOfExpertise:'',
           Password:'',
-          AccountType:''
+          AccountType:'Doctor'
         };
       }
     }
@@ -148,7 +148,6 @@ export default {
   methods: {
     onSubmit: function() {
       if (this.doctor.NIC === '' ||this.doctor.FirstName === '' || 
-      this.doctor.MiddleName === '' ||
       this.doctor.Surname === '' ||
       this.doctor.DOB === '' ||
       this.doctor.MobilePhone === '' ||

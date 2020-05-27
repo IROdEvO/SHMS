@@ -6,11 +6,11 @@ import threading
 import random
 
 client = pymongo.MongoClient("mongodb+srv://shms:LwiRHVe1Ht6V7Otf@cluster0-xivfn.mongodb.net/test?retryWrites=true&w=majority")
-
+assignedpatientnic="199604901124"
 # database 
 db = client.SHMS 
 
-# Created or Switched to collection 
+# Created or Switched to collection
 collection = db.vitalrecords
 
 WAIT_SECONDS = 10
@@ -18,8 +18,8 @@ WAIT_SECONDS = 10
 def values():
 	values.temp = round(random.uniform(30.51,44.51),2)
 	values.pulse = random.randint(30,150)
-	values.latitude = round(random.uniform(-90,90),4)
-	values.longitude = round(random.uniform(-180,180),4)
+	values.latitude = round(random.uniform(6.4,8.8),4)
+	values.longitude = round(random.uniform(79.5,81.66),4)
 	if values.temp<35.0 :
 		values.tempcondition = "Hypothermia"
 		values.alertstatus1 = "Critical"
@@ -67,6 +67,7 @@ values()
 def senddata():
 
     vitalrecord = {
+		"AssignedPatientNIC":assignedpatientnic,
             	"Temperature" : values.temp,
            	"Pulse" : values.pulse,
             	"EmergencyButtonPressed" : "No",

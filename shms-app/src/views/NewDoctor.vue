@@ -13,11 +13,6 @@ export default {
   components: {
     'doctor-form': doctorForm
   },
-   data: function() {
-    return {
-      doctor: {"AccountType":"Doctor"}
-    };
-  },
   methods: {
     createOrUpdate: async function(doctor) {
       const res = await api.createuser(doctor);

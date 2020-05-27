@@ -2,12 +2,19 @@
   <div id="app">
     <div class="ui inverted segment navbar">
       <div class="ui center aligned container">
+        <h1 style="color:Gainsboro;">SMART HEALTH MONITORING SYSTEM</h1>
         <div class="ui large secondary inverted pointing menu compact">
+          <router-link to="/login" exact class="item">
+            Login
+          </router-link>
           <router-link to="/patients" exact class="item">
             Patients
           </router-link>
           <router-link to="/patients/new" class="item">
             <i class="plus circle icon"></i> New Patient
+          </router-link>
+          <router-link to="/dashboard" exact class="item">
+            DASHBOARD
           </router-link>
           <router-link to="/doctors" exact class="item">
             Doctors
@@ -26,6 +33,9 @@
         </div>
       </div>
     </div>
+    
+  
+
   </div>
 </template>
 
